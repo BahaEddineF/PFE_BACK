@@ -12,7 +12,6 @@ public interface IUserService {
     public User getUserById(int id);
     public UserInfo getUserInfoById(int id);
     public void deleteUser(int id);
-
     void blockUser(int id);
     void unblockUser(int id);
 

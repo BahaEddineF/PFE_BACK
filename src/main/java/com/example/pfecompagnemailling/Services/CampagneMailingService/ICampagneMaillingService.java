@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface ICampagneMaillingService {
     public CampagneMailing addCampagneMailling (CampagneMailing CampagneMailling);
-    public CampagneMailing updateCampagneMailling (CampagneMailing CampagneMailling);
     public List<CampagneMailing> getAllCampagneMaillings();
     public CampagneMailing getCampagneMaillingById(int id);
 
@@ -17,5 +16,9 @@ public interface ICampagneMaillingService {
 
    public CampagneMailing addCampagneMailingAndAffectModeleConfig( CampagneMailing campagneMailing);
 
-    public CampagneMailing  addCampagneMailingWithConfigAndModeleAndPlanification ( CampagneMailing campagneMailing);
+    public CampagneMailing  saveCampagneMailing ( CampagneMailing campagneMailing);
+
+    void sendSynchronousMail(CampagneMailing campagneMailing);
+
+    void sendAsynchronousMail(CampagneMailing campagneMailing);
 }

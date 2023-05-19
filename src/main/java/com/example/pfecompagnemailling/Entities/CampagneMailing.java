@@ -26,7 +26,7 @@ public class CampagneMailing implements Serializable {
     //
     private String email;
     private String destinataire;
-    private int etat;
+    private String etat;
 
     @Enumerated(EnumType.STRING)
     private ModeEnvoie modeEnvoie;

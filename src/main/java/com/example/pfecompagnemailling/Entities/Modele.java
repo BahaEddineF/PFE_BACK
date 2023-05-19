@@ -23,6 +23,7 @@ public class Modele implements Serializable {
     private int id ;
     private String nom;
     private String sujet;
+    @Column(length = 750)
     private String contenu;
     private String signature;
 

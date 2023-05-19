@@ -19,10 +19,7 @@ public class CampagneMailingController {
         return iCampagneMailingService.addCampagneMailling(CampagneMailing)  ;
     }
 
-    @PutMapping("/updateCampagneMailing")
-    public CampagneMailing updateCampagneMailing(@RequestBody CampagneMailing CampagneMailing){
-        return iCampagneMailingService.updateCampagneMailling(CampagneMailing)  ;
-    }
+  
 
     @GetMapping("/AllCampagneMailing")
     public List<CampagneMailing> AllCampagneMailing(){
@@ -45,9 +42,14 @@ public class CampagneMailingController {
      return iCampagneMailingService.addCampagneMailingAndAffectModeleConfig(campagneMailing)   ;
     }
 
-    @PostMapping("/addCampagneMailingWithConfigAndModeleAndPlanification")
-    public CampagneMailing addCampagneMailingWithConfigAndModeleAndPlanification(
+    @PostMapping("/saveCampagneMailing")
+    public CampagneMailing saveCampagneMailing(
                                                                    @RequestBody CampagneMailing campagneMailing) {
-        return iCampagneMailingService.addCampagneMailingWithConfigAndModeleAndPlanification(campagneMailing)   ;
+        return iCampagneMailingService.saveCampagneMailing(campagneMailing)   ;
+    }
+    @PostMapping("/sendSynchronousMail")
+    void sendSynchronousMail(@RequestBody CampagneMailing campagneMailing)
+    {
+        iCampagneMailingService.sendSynchronousMail(campagneMailing);
     }
 }

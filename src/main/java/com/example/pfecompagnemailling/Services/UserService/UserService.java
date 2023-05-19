@@ -31,7 +31,7 @@ public class UserService implements IUserService {
             User user = userRepository.findById(userInfo.getId()).get();
         Role roleUser = roleRepository.findById(2).get();
         user.setRole(roleUser);
-        user.setActive(true);
+        user.setActive(userInfo.isActive());
         user.setNom(userInfo.getNom());
         user.setPrenom(userInfo.getPrenom());
         user.setDatenaissance(userInfo.getDateDeNaissance());
