@@ -29,18 +29,17 @@ import javax.mail.internet.MimeMessage;
 
 @Service
 @AllArgsConstructor
-public class CampagneMaillingService  implements ICampagneMaillingService{
+public class CampagneMaillingService implements ICampagneMaillingService {
     public CampagneMailingRepository campagneMailingRepository;
     public PlanificationRepository planificationRepository;
     public ConfigurationRepository configurationRepository;
     public ModeleRepository modeleRepository;
     public UserRepository userRepository;
+
     @Override
     public CampagneMailing addCampagneMailling(CampagneMailing campagneMailling) {
         return campagneMailingRepository.save(campagneMailling);
     }
-
-  
 
     @Override
     public List<CampagneMailing> getAllCampagneMaillings() {
@@ -54,26 +53,23 @@ public class CampagneMaillingService  implements ICampagneMaillingService{
 
     @Override
     public void deleteCampagneMailing(int id) {
-         campagneMailingRepository.deleteById(id);
+        campagneMailingRepository.deleteById(id);
 
     }
-
-
-
 
     @Override
     public CampagneMailing addCampagneMailingAndPlanification(CampagneMailing campagneMailing) {
         Planification planification = new Planification();
         planification.setDateenv(campagneMailing.getPlanification().getDateenv());
         planification.setRepetetion(campagneMailing.getPlanification().getRepetetion());
-
         campagneMailing.setPlanification(planification);
         return null;
     }
 
     @Override
-    public CampagneMailing addCampagneMailingAndAffectModeleConfig( CampagneMailing campagneMailing) {
-        Configuration configuration = configurationRepository.findById(campagneMailing.getConfiguration().getId()).orElse(null);
+    public CampagneMailing addCampagneMailingAndAffectModeleConfig(CampagneMailing campagneMailing) {
+        Configuration configuration = configurationRepository.findById(campagneMailing.getConfiguration().getId())
+                .orElse(null);
         Modele modele = modeleRepository.findById(campagneMailing.getModele().getId()).orElse(null);
         campagneMailing.setConfiguration(configuration);
         campagneMailing.setModele(modele);
@@ -82,22 +78,22 @@ public class CampagneMaillingService  implements ICampagneMaillingService{
     }
 
     @Override
-    public CampagneMailing saveCampagneMailing( CampagneMailing campagneMailing) {
-        Configuration configuration = configurationRepository.findById(campagneMailing.getConfiguration().getId()).orElse(null);
+    public CampagneMailing saveCampagneMailing(CampagneMailing campagneMailing) {
+        Configuration configuration = configurationRepository.findById(campagneMailing.getConfiguration().getId())
+                .orElse(null);
         Modele modele = modeleRepository.findById(campagneMailing.getModele().getId()).orElse(null);
         campagneMailing.setConfiguration(configuration);
         campagneMailing.setModele(modele);
         campagneMailing.setEtat("Encours");
         Planification planification = campagneMailing.getPlanification();
-        if(planification != null) {
-        planificationRepository.save(planification);
-        campagneMailing.setPlanification(planification);
+        if (planification != null) {
+            planificationRepository.save(planification);
+            campagneMailing.setPlanification(planification);
         }
         return campagneMailingRepository.save(campagneMailing);
     }
- 
- 
-     public JavaMailSender getJavaMailSender(CampagneMailing campagneMailing) {
+
+    public JavaMailSender getJavaMailSender(CampagneMailing campagneMailing) {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(campagneMailing.getConfiguration().getSmtpserver());
         mailSender.setPort(campagneMailing.getConfiguration().getPort());
@@ -121,25 +117,25 @@ public class CampagneMaillingService  implements ICampagneMaillingService{
         MimeMessage message2 = getJavaMailSender(campagneMailing).createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message2);
 
-       Modele modele =  campagneMailing.getModele();
-        for(String receiver: to)
-        {
+        Modele modele = campagneMailing.getModele();
+        for (String receiver : to) {
             try {
                 helper.setTo(receiver);
-                helper.setText("<span style='font-weight: bold;font-size: 20px;'>Corps: </span>"+"\n" + modele.getContenu()+"\n" +"<span style='font-weight: bold;font-size: 20px;'>Signature: </span> <br>"+  modele.getSignature()
-                ,true);
+                helper.setText("<span style='font-weight: bold;font-size: 20px;color:bleu'>Corps: </span>" + "\n" +
+                        modele.getContenu() + "\n"
+                        + "<span style='font-weight: bold;font-size: 20px;color:bleu'>Signature: </span> <br>" +
+                        modele.getSignature(), true);
                 helper.setSubject(modele.getSujet());
             } catch (MessagingException e) {
                 e.printStackTrace();
-    
-              
+
             }
             getJavaMailSender(campagneMailing).send(message2);
         }
 
         campagneMailing.setEtat("Envoyé");
         campagneMailingRepository.save(campagneMailing);
-      
+
     }
 
     @Override
@@ -152,22 +148,29 @@ public class CampagneMaillingService  implements ICampagneMaillingService{
         MimeMessage message2 = getJavaMailSender(campagneMailing).createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message2);
 
-       Modele modele =  campagneMailing.getModele();
-        for(String receiver: to)
-        {
+        Modele modele = campagneMailing.getModele();
+        for (String receiver : to) {
             try {
                 helper.setTo(receiver);
-                helper.setText("<span style='font-weight: bold;font-size: 20px;'>Corps: </span>"+"\n" + modele.getContenu()+"\n" +"<span style='font-weight: bold;font-size: 20px;'>Signature: </span> <br>"+  modele.getSignature()
-                ,true);
+                helper.setText(
+                        "<span style='font-weight: bold;font-size: 20px;color:bleu'>Corps: </span>" + "\n"
+                                + modele.getContenu()
+                                + "\n"
+                                + "<span style='font-weight: bold;font-size: 20px;color:bleu'>Signature: </span> <br>"
+                                + modele.getSignature(),
+                        true);
                 helper.setSubject(modele.getSujet());
             } catch (MessagingException e) {
                 e.printStackTrace();
-    
-              
+
             }
             getJavaMailSender(campagneMailing).send(message2);
         }
-        campagneMailing.setEtat("Envoyé");
-        campagneMailingRepository.save(campagneMailing);
+
+    }
+
+    @Override
+    public long countCampagneMailings() {
+        return campagneMailingRepository.count();
     }
 }

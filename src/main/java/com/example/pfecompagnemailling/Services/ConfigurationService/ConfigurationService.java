@@ -9,8 +9,9 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ConfigurationService  implements IConfigurationService {
+public class ConfigurationService implements IConfigurationService {
     public ConfigurationRepository configurationRepository;
+
     @Override
     public Configuration addConfiguration(Configuration configuration) {
         return configurationRepository.save(configuration);

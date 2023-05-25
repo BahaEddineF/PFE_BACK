@@ -1,6 +1,5 @@
 package com.example.pfecompagnemailling.Controllers;
 
-
 import com.example.pfecompagnemailling.Entities.Planification;
 import com.example.pfecompagnemailling.Services.PlanificationService.IPlanificationService;
 import lombok.AllArgsConstructor;
@@ -14,28 +13,27 @@ public class PlanificationController {
     IPlanificationService iPlanificationService;
 
     @PostMapping("/addPlanification")
-    public Planification addPlanification(@RequestBody Planification Planification){
-        return iPlanificationService.addPlanification(Planification)  ;
+    public Planification addPlanification(@RequestBody Planification Planification) {
+        return iPlanificationService.addPlanification(Planification);
     }
 
     @PutMapping("/updatePlanification")
-    public Planification updatePlanification(@RequestBody Planification Planification){
-        return iPlanificationService.updatePlanification(Planification)  ;
+    public Planification updatePlanification(@RequestBody Planification Planification) {
+        return iPlanificationService.updatePlanification(Planification);
     }
 
     @GetMapping("/AllPlanification")
-    public List<Planification> AllPlanification(){
-        return iPlanificationService.getAllPlanifications()  ;
+    public List<Planification> AllPlanification() {
+        return iPlanificationService.getAllPlanifications();
     }
 
     @GetMapping("/getPlanificationById/{id}")
-    public Planification getPlanificationById(@PathVariable("id") int id){
-        return iPlanificationService.getPlanificationById(id)  ;
+    public Planification getPlanificationById(@PathVariable("id") int id) {
+        return iPlanificationService.getPlanificationById(id);
     }
 
-
     @DeleteMapping("/deletePlanification/{id}")
-    public void deletePlanification(@PathVariable("id") int id){
-        iPlanificationService.deletePlanification(id);  ;
+    public void deletePlanification(@PathVariable("id") int id) {
+        iPlanificationService.deletePlanification(id);
     }
 }

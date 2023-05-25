@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-
 @Entity
 @Getter
 @Setter
@@ -20,12 +19,12 @@ import java.util.Set;
 public class Planification implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id ;
+    private int id;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateenv;
     private int repetetion;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "planification")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "planification")
     @JsonIgnore
-    private Set<CampagneMailing> campagneMailingSet ;
+    private Set<CampagneMailing> campagneMailingSet;
 }

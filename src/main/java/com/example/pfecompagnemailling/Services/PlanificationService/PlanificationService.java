@@ -1,6 +1,5 @@
 package com.example.pfecompagnemailling.Services.PlanificationService;
 
-
 import com.example.pfecompagnemailling.Entities.Planification;
 import com.example.pfecompagnemailling.Repository.PlanificationRepository;
 import lombok.AllArgsConstructor;
@@ -12,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PlanificationService implements IPlanificationService {
     public PlanificationRepository planificationRepository;
+
     @Override
     public Planification addPlanification(Planification planification) {
         return planificationRepository.save(planification);
@@ -36,5 +36,5 @@ public class PlanificationService implements IPlanificationService {
     public void deletePlanification(int id) {
         planificationRepository.deleteById(id);
     }
-    //!timer
+    // !timer
 }

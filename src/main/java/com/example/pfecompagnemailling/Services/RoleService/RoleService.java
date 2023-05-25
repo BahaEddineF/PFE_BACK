@@ -1,6 +1,5 @@
 package com.example.pfecompagnemailling.Services.RoleService;
 
-
 import com.example.pfecompagnemailling.Entities.Role;
 import com.example.pfecompagnemailling.Repository.RoleRepository;
 import com.example.pfecompagnemailling.Services.PlanificationService.IPlanificationService;
@@ -14,6 +13,7 @@ import java.util.List;
 public class RoleService implements IRoleService {
 
     public RoleRepository roleRepository;
+
     @Override
     public Role addRole(Role role) {
         return roleRepository.save(role);
@@ -21,7 +21,7 @@ public class RoleService implements IRoleService {
 
     @Override
     public Role updateRole(Role role) {
-        return  roleRepository.save(role);
+        return roleRepository.save(role);
     }
 
     @Override

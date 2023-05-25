@@ -1,12 +1,14 @@
 package com.example.pfecompagnemailling.Services.UserService;
 
-
 import com.example.pfecompagnemailling.DTO.UserInfo;
 import com.example.pfecompagnemailling.Entities.Role;
 import com.example.pfecompagnemailling.Entities.User;
 import com.example.pfecompagnemailling.Repository.RoleRepository;
 import com.example.pfecompagnemailling.Repository.UserRepository;
 import lombok.AllArgsConstructor;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,18 +19,19 @@ import java.util.stream.Collectors;
 public class UserService implements IUserService {
     public final UserRepository userRepository;
     public final RoleRepository roleRepository;
-     
+    private final  BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public User addUser(User user) {
         Role roleUser = roleRepository.findById(2).get();
         user.setRole(roleUser);
         user.setActive(true);
+        user.setMotdepasse(bCryptPasswordEncoder.encode(user.getMotdepasse()));
         return userRepository.save(user);
     }
 
     @Override
     public User updateUser(UserInfo userInfo) {
-            User user = userRepository.findById(userInfo.getId()).get();
+        User user = userRepository.findById(userInfo.getId()).get();
         Role roleUser = roleRepository.findById(2).get();
         user.setRole(roleUser);
         user.setActive(userInfo.isActive());
@@ -44,15 +47,16 @@ public class UserService implements IUserService {
     public List<UserInfo> getAllUsers() {
         return userRepository.findAll().stream().map(UserInfo::fromEntity).collect(Collectors.toList());
     }
+
     @Override
     public User getUserById(int id) {
         return userRepository.findById(id).orElse(null);
-      
+
     }
 
     @Override
     public UserInfo getUserInfoById(int id) {
-        User user =  userRepository.findById(id).orElse(null);
+        User user = userRepository.findById(id).orElse(null);
         return UserInfo.fromEntity(user);
     }
 
@@ -63,16 +67,28 @@ public class UserService implements IUserService {
 
     @Override
     public void blockUser(int id) {
-        User user  = this.getUserById(id);
+        User user = this.getUserById(id);
         user.setActive(false);
         userRepository.save(user);
     }
 
     @Override
     public void unblockUser(int id) {
-        User user  = this.getUserById(id);
+        User user = this.getUserById(id);
         user.setActive(true);
         userRepository.save(user);
+    }
+
+    @Override
+    public long countUsers() {
+        return userRepository.count();
+    }
+
+    @Override
+    public UserInfo getUserProfile(Authentication authentication) {
+        String login = authentication.getName() ; 
+        User user = userRepository.findByLogin(login).orElse(null);
+        return UserInfo.fromEntity(user);
     }
 
 }

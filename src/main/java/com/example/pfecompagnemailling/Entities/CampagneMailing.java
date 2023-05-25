@@ -11,7 +11,6 @@ import java.io.ObjectInputFilter;
 import java.io.Serializable;
 import java.util.Set;
 
-
 @Entity
 @Getter
 @Setter
@@ -20,17 +19,14 @@ import java.util.Set;
 public class CampagneMailing implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id ;
-
+    private int id;
     private String nom;
-    //
     private String email;
     private String destinataire;
     private String etat;
 
     @Enumerated(EnumType.STRING)
     private ModeEnvoie modeEnvoie;
-
 
     @ManyToOne
     private Planification planification;
@@ -41,8 +37,8 @@ public class CampagneMailing implements Serializable {
     @ManyToOne
     private Configuration configuration;
 
-    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "campagneMailing")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "campagneMailing")
     @JsonIgnore
-    private Set<User> users ;
+    private Set<User> users;
 
 }

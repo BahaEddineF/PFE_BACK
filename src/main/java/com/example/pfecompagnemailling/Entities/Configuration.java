@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-
 @Entity
 @Getter
 @Setter
@@ -19,13 +18,13 @@ import java.util.Set;
 public class Configuration implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id ;
+    private int id;
 
     private String smtpserver;
     private int port;
     private String url;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "configuration")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "configuration")
     @JsonIgnore
     private Set<CampagneMailing> campagneMailings;
 

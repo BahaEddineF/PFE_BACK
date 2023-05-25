@@ -8,9 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
-
 
 @Entity
 @Getter
@@ -20,14 +18,14 @@ import java.util.Set;
 public class Modele implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id ;
+    private int id;
     private String nom;
     private String sujet;
     @Column(length = 750)
     private String contenu;
     private String signature;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "modele")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "modele")
     @JsonIgnore
     private Set<CampagneMailing> campagneMailing;
 }

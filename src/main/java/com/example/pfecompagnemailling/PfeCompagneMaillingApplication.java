@@ -1,24 +1,13 @@
 package com.example.pfecompagnemailling;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.TimerTask;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
+
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
-import com.example.pfecompagnemailling.Entities.CampagneMailing;
-import com.example.pfecompagnemailling.Entities.ModeEnvoie;
-import com.example.pfecompagnemailling.Repository.CampagneMailingRepository;
-import com.example.pfecompagnemailling.Services.CampagneMailingService.ICampagneMaillingService;
 @EnableScheduling
 @SpringBootApplication
 public class PfeCompagneMaillingApplication {
