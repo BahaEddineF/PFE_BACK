@@ -12,15 +12,11 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @SpringBootApplication
 public class PfeCompagneMaillingApplication {
 
-	
-	
-	
- 	public static void main(String[] args) {
-		SpringApplication.run(PfeCompagneMaillingApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PfeCompagneMaillingApplication.class, args);
+    }
 
-	
-	@Bean
+    @Bean
     public TaskScheduler taskScheduler() {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(1);
@@ -28,6 +24,5 @@ public class PfeCompagneMaillingApplication {
         scheduler.setDaemon(true);
         return scheduler;
     }
-	
 
 }
